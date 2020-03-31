@@ -20,6 +20,11 @@ import edu.princeton.cs.algs4.StdOut;
  * Copy this class into your package, which must have USERID has its root.
  */
 public class Evaluate {
+
+	private static double eqSign(double a, double b){
+		if (a == b) { return 1.0; } else { return 0; }
+	}
+
 	public static void main(String[] args) {
 		FixedCapacityStack<String> ops = new FixedCapacityStack<String>(100);
 		FixedCapacityStack<Double> vals = new FixedCapacityStack<Double>(100);
@@ -32,7 +37,9 @@ public class Evaluate {
 			else if (s.equals ("-")) { ops.push(s); }
 			else if (s.equals ("*")) { ops.push(s); }
 			else if (s.equals ("/")) { ops.push(s); }
+			else if (s.equals ("round")) { ops.push(s); }
 			else if (s.equals ("sqrt")) { ops.push(s); }
+			else if (s.equals("=")) { ops.push(s); }
 			else if (s.equals (")")) {
 				// pop, evaluate, and push result if token is ")".
 				String op = ops.pop();
@@ -41,6 +48,8 @@ public class Evaluate {
 				else if (op.equals("-")) { v = vals.pop() - v; }
 				else if (op.equals("*")) { v = vals.pop() * v; }
 				else if (op.equals("/")) { v = vals.pop() / v; }
+				else if (op.equals("=")) { v = eqSign(vals.pop(),v); }
+				else if (op.equals("round")) { v = Math.round(v); }
 				else if (op.equals("sqrt")) { v = Math.sqrt(v); }
 				vals.push(v);
 			} else {
@@ -55,5 +64,6 @@ public class Evaluate {
 		// of the ops stack and vals stack. You will need this for your 
 		// answer.
 		StdOut.println();
+
 	}
 }
