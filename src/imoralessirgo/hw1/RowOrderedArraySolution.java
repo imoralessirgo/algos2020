@@ -19,6 +19,41 @@ public class RowOrderedArraySolution extends RowOrderedArraySearch {
 	@Override
 	public int[] locate(int target) {
 		// FIX ME: complete this method. Currently this causes an exception to be thrown
+		int n = this.length();
+		int high = n - 1;
+		int low = 0;
+
+		// find row with value
+		while (low <= high){
+			int mid = (high+low)/2;
+			int temp = inspect(mid,0) - target;
+			if(temp > 0){
+				high = mid - 1;
+			}else if(temp < 0){
+				low = mid + 1;
+			}else{
+				return new int[] {mid,0};
+			}
+		}
+
+		int row = high; // store row
+
+		// reset values for binary search in row
+		high = row;
+		low = 1;
+		while (low <= high){
+			int mid = (high+low)/2;
+			int temp = inspect(row,mid) - target;
+			if(temp > 0){
+				high = mid - 1;
+			}else if(temp < 0){
+				low = mid + 1;
+			}else{
+				return new int[] {row,mid};
+			}
+		}
+
+
 		return null;
 	}
 	
