@@ -40,7 +40,7 @@ public class RowOrderedArraySolution extends RowOrderedArraySearch {
 
 		// reset values for binary search in row
 		high = row;
-		low = 1;
+		low = 1; // set to one since column 0 vals have already been found
 		while (low <= high){
 			int mid = (high+low)/2;
 			int temp = inspect(row,mid) - target;

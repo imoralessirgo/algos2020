@@ -24,8 +24,6 @@ Q1. Stack Experiments
     b. []
     c. []
 
-____________________
-
 1.7
     a. 2.0
     b. []
@@ -40,8 +38,13 @@ Bonus Questions
 Q1.8  
 
 Q2.1.1 
+- currently at 7580 inspections
 
 Q2.2.1 
+- if we can assume the content of the array will always increment by (n-1) moding the target by that value before running the search reduces the number
+of calls to inspect
+- 551 total
+
 
 Q2.3.1
 
