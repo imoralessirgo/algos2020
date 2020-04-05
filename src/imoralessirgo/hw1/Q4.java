@@ -28,11 +28,27 @@ public class Q4 {
 	 * 2. You cannot call any other function other than push and pop.
 	 */
 	static long fibonacci(FixedCapacityStack<Long> stack) {
-		long result = 0;
-		while (!stack.isEmpty()) { 
+		long result = 1;
+		while (!stack.isEmpty()) {
 			long val = stack.pop();
-			
-			// YOU HAVE WORK TO DO HERE...
+
+			if(val < 2){
+				return result;
+			}else{
+				stack.push((long)1);
+				stack.push((long)1);
+
+				while(val > 1){
+					long temp1 = stack.pop();
+					long temp2 = stack.pop();
+
+					stack.push(temp1);
+					stack.push(temp1 + temp2);
+					val--;
+				}
+			}
+			result = stack.pop();
+			break;
 		}
 		
 		return result;
@@ -52,8 +68,21 @@ public class Q4 {
 		while (!stack.isEmpty()) { 
 			long a = stack.pop();
 			long b = stack.pop();
-			
+
 			// YOU HAVE WORK TO DO HERE...
+			if(a > b){
+				if(a%b != 0){
+					stack.push(a%b);
+				}else{ return b; }
+				stack.push(b);
+			}else if (b > a){
+				if(b%a != 0){
+					stack.push(b%a);
+				}else{ return b; }
+				stack.push(a);
+			}else{
+				return a;
+			}
 		}
 
 		// should never get here

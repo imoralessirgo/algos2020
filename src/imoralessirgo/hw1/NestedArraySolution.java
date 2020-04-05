@@ -3,7 +3,7 @@ package imoralessirgo.hw1;
 import algs.hw1.arraysearch.ArraySearch;
 import algs.hw1.arraysearch.NestedArraySearch;
 
-enum line{
+enum line{ // facilitate search by line
 	SOUTHEAST,
 	WEST,
 	NORTH
@@ -20,15 +20,24 @@ public class NestedArraySolution extends NestedArraySearch {
 	}
 
 
-
+	/**
+	 * verticalSearch
+	 *
+	 * method performs binary search on vertical line
+	 *
+	 * @param target number to find
+	 * @param lo smallest number index
+	 * @param hi largest number index
+	 * @return index of target if found
+	 */
 	public int[] verticalSearch(int target, int[] lo, int[] hi){
-		while (lo[0] <= hi[0]){
+		while (lo[0] >= hi[0]){
 			int mid = (hi[0]+lo[0])/2;
 			int temp = inspect(mid,hi[1]) - target;
 			if(temp > 0){
-				hi[0] = mid - 1;
+				hi[0] = mid + 1;
 			}else if(temp < 0){
-				lo[0] = mid + 1;
+				lo[0] = mid - 1;
 			}else{
 				return new int[] {mid,hi[1]};
 			}
@@ -36,22 +45,46 @@ public class NestedArraySolution extends NestedArraySearch {
 		return null;
 	}
 
+
+	/**
+	 * horizontalSearch
+	 *
+	 * method performs binary search on horizontal line
+	 *
+	 * @param target number to find
+	 * @param lo smallest number index
+	 * @param hi largest number index
+	 * @return index of target if found
+	 */
 	public int[] horizontalSearch(int target, int[] lo, int[] hi){
-		while (lo[1] <= hi[1]){
+		while (lo[1] >= hi[1]){
 			int mid = (hi[1]+lo[1])/2;
 			int temp = inspect(hi[0],mid) - target;
 			if(temp > 0){
-				hi[1] = mid - 1;
+				hi[1] = mid + 1;
 			}else if(temp < 0){
-				lo[1] = mid + 1;
+				lo[1] = mid - 1;
 			}else{
 				return new int[] {hi[0],mid};
 			}
 		}
 		return null;
+
 	}
 
-	public int[] diagonalSearch(int target, int[] hi, int[] lo){
+
+
+	/**
+	 * verticalSearch
+	 *
+	 * method performs binary search on diagonal line
+	 *
+	 * @param target number to find
+	 * @param lo smallest number index
+	 * @param hi largest number index
+	 * @return index of target if found
+	 */
+	public int[] diagonalSearch(int target, int[] lo, int[] hi){
 
 		while (lo[0] <= hi[0]){
 			int[] mid = {(hi[0]+lo[0])/2,(hi[1]+lo[1])/2};
@@ -89,6 +122,7 @@ public class NestedArraySolution extends NestedArraySearch {
 				}else if (result < 0){
 					level++;
 				}else{
+					System.out.println("found in top " + target);
 					return new int[] {i,j};
 				}
 		}
@@ -108,15 +142,13 @@ public class NestedArraySolution extends NestedArraySearch {
 			}else if(result < 0){
 				l = line.NORTH;
 			}else{
-				System.out.println("found " + target + " at [" + bottomLeft[0] + ", " + bottomLeft[1] + "]");
 				return bottomLeft;
 			}
 		}else{
-			System.out.println("found " + target + " at [" + bottomRight[0] + ", " + bottomRight[1] + "]");
 			return bottomRight;
 		}
 
-		switch(l){
+		switch(l){ // given a line search there
 			case NORTH:
 				return verticalSearch(target,
 						new int[] {bottomLeft[0] - 1, bottomLeft[1]},
