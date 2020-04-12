@@ -30,6 +30,8 @@ Q1. Stack Experiments
     c. []
 
 Q3.1 Function f(n) that models # of array inspections for UnknownArraySolution
+ F(n) = 38*n^3 - 255*n^2 + 547*n - 315;
+
 
 Q3.2 Function g(n) that models # of array inspections for ImprovedUnknownArraySolution 
 
