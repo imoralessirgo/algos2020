@@ -6,7 +6,9 @@ package imoralessirgo.hw2;
  * This class will be used by Question Q1 on Homework2.
  */
 public class WordList {
-	
+	private Node node;
+	private int size;
+
 	/** 
 	 * Leave this Node class as is. While you don't need to make changes to this class,
 	 * it is acceptable if you would like to add methods to this class.
@@ -18,6 +20,38 @@ public class WordList {
 		Node(String w) {
 			this.word = w;
 		}
+
+		public boolean hasNext(){
+			return next != null;
+		}
+	}
+
+	/**
+	 *
+	 * @return initial node getter
+	 */
+	private Node getNode(){
+		return this.node;
+	}
+
+	/**
+	 *
+	 * @param n
+	 * @return initial node setter
+	 */
+	private Node setNode(Node n){
+		this.size = 1;
+		this.node = n;
+		return this.node;
+	}
+
+	private void incrementSize(){
+		this.size += 1;
+	}
+
+
+	private void decrementSize(){
+		this.size -= 1;
 	}
 
 	/**
@@ -28,14 +62,21 @@ public class WordList {
 	 * @param elt      element to be added.
 	 */
 	public boolean add(String elt) {
-		// TODO
+		if(!this.contains(elt)){
+			Node n = this.getNode();
+			while(n.hasNext()){
+				n = n.next;
+			}
+			n.next = new Node(elt);
+			this.incrementSize();
+			return true;
+		}
 		return false;
 	}
 
 	/** Returns the number of elements in the set. */ 
 	public int size() {
-		// TODO
-		return -1;
+		return this.size;
 	}
 
 	/**
@@ -44,7 +85,17 @@ public class WordList {
 	 * @param elt      element to be removed.
 	 */
 	public boolean remove (String elt) {
-		// TODO
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			while(n.word != elt){
+				n = n.next;
+				if(n.next == null){ return false; }
+			}
+			n.word = n.next.word;
+			n.next = n.next.next;
+			this.decrementSize();
+			return true;
+		}
 		return false;
 	}
 
@@ -53,13 +104,28 @@ public class WordList {
 	 * @param elt      target element to be searched.
 	 */
 	public boolean contains(String elt) {
-		// TODO
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			while(n.word != elt){
+				n = n.next;
+				if(n.next == null){ return false; }
+			}
+			return true;
+		}
 		return false;
 	}
 
 	/** For debugging, return comma-separated string of elements. */
 	public String elements() {
-		// TODO
+		String result = "";
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			while(n.next != null){
+				result += n.word + " ";
+				n = n.next;
+			}
+			return result;
+		}
 		return "";
 	}
 
