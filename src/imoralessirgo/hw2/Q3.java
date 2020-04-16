@@ -45,11 +45,12 @@ Your task is to modify the program so it produces the following
 
  */
 public class Q3 {
-
+	static int count;
 	/** 
 	 * Helper method to compute base^exp as a long.
 	 */
 	static long power(int base, int exp) {
+		count++;
 		return (long) Math.pow(base, exp);
 	}
 	
@@ -91,9 +92,9 @@ public class Q3 {
 	
 	/** Launch the experiment. */
 	public static void main(String[] args) {
-		System.out.println("    N          Value");
+		System.out.println("     N         Value   Actual");
 		for (int n = 2; n <= 4096; n *= 2) {
-			
+			count = 0;
 			int[] a = new int[n];
 			for (int i = 0; i < n; i++) { a[i] = i; }
 			
@@ -101,7 +102,7 @@ public class Q3 {
 			// using indices of lo=0 and hi=n-1
 			long val = proc(a, 0, n-1);
 			
-			System.out.println(String.format("%6d\t%12d", n, val));
+			System.out.println(String.format("%6d\t%12d\t%6d", n, val, count));
 		}
 	}
 }

@@ -31,12 +31,20 @@ import algs.days.day05.FixedCapacityQueue;
 public class Selection {
 	final int N;      /* Number of people. */
 	final int k;      /* Delta to counting. */
+	Node n;
 	
 	/** Construct an instance of the problem with N people choosing by k. */
 	public Selection(int N, int k) {
 		this.N = N;
 		this.k = k;
-		
+		if(N != 0) {
+			this.n = new Node(1);
+		}
+		Node n = this.n;
+		for(int i = 1; i < this.N ; i++){
+			n.next = new Node(i+1);
+			n = n.next;
+		}
 		// Here is where you would construct a Linked List with N nodes
 		// [1] -> [2] -> [3] -> ... -> [n]
 	}

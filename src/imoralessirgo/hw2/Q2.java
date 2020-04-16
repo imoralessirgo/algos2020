@@ -10,27 +10,58 @@ package imoralessirgo.hw2;
 public class Q2 {
 
 	static void mostFrequent() throws java.io.IOException {
-		// TODO CHANGE TO MAKE THIS WORK...
-		
+		String mostFreq = "";
+		int count = 0;
+		int accumulatedCount = 0;
+		int totalWords = 0;
+		WordSymbolTable wl = new WordSymbolTable();
+		for(int i = 1; i <= 45 ; i++) {
+			TaleOfTwoCitiesExtractor te = new TaleOfTwoCitiesExtractor(i);
+			for (String word : te) {
+				wl.increment(word);
+				totalWords += 1;
+			}
+		}
+		mostFreq = wl.mostFrequent();
+		count = wl.count(mostFreq);
+		double f = ((double)count/totalWords)*100;
+
 		System.out.println(
 				String.format("\"%s\" is the most frequent word, used %d times out of %d total words (%.2f%%)",
-						"NOTHING", 1, 1000, .001));
+						mostFreq, count, totalWords, f));
 
 		System.out.println("The Top Ten words by frequency are:");
-		System.out.println(String.format("%2d. %s (%d)", 1, "NOTHING", 1));
-		
-
-		System.out.println(String.format("These ten words represent %.2f%% of the total words in the book", 99.99));
+		accumulatedCount = count;
+		System.out.println(String.format("%2d. %s (%d)", 1, mostFreq, count));
+		wl.remove(mostFreq);
+		for(int i = 1 ; i < 10; i++){
+			mostFreq = wl.mostFrequent();
+			count = wl.count(mostFreq);
+			accumulatedCount += count;
+			System.out.println(String.format("%2d. %s (%d)", i + 1, mostFreq, count));
+			wl.remove(mostFreq);
+		}
+		System.out.println(String.format("These ten words represent %.2f%% of the total words in the book", ((double)accumulatedCount/totalWords)*100));
 
 	}
 
 	static void wordsUsedOnce() throws java.io.IOException {
-		int numSingle = -1;
-		int longest = 999;
-		
-		// TODO
-		
-		System.out.println(String.format("%d words are used exactly once (longest is \"%s\")", numSingle, longest));
+		int numSingle = 0;
+		WordSymbolTable wl = new WordSymbolTable();
+		for(int i = 1; i <= 45 ; i++) {
+			TaleOfTwoCitiesExtractor te = new TaleOfTwoCitiesExtractor(i);
+			for (String word : te) {
+				wl.increment(word);
+			}
+		}
+		WordSymbolTable.Node n = wl.getNode();
+		if(n.count == 1){numSingle = 1;}
+		while(n.next != null){
+			n = n.next;
+			if(n.count == 1){numSingle += 1;}
+		}
+
+		System.out.println(String.format("%d words are used exactly once", numSingle));
 	}
 
 	public static void main(String[] args) throws java.io.IOException {

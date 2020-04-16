@@ -30,7 +30,7 @@ public class WordList {
 	 *
 	 * @return initial node getter
 	 */
-	private Node getNode(){
+	public Node getNode(){
 		return this.node;
 	}
 
@@ -50,6 +50,11 @@ public class WordList {
 	}
 
 
+	public boolean isEmpty(){
+		return this.node == null;
+	}
+
+
 	private void decrementSize(){
 		this.size -= 1;
 	}
@@ -62,7 +67,8 @@ public class WordList {
 	 * @param elt      element to be added.
 	 */
 	public boolean add(String elt) {
-		if(!this.contains(elt)){
+		if (this.isEmpty()){ this.setNode(new Node(elt)); return true; }
+		else if(!this.contains(elt)){
 			Node n = this.getNode();
 			while(n.hasNext()){
 				n = n.next;
@@ -90,6 +96,13 @@ public class WordList {
 			while(n.word != elt){
 				n = n.next;
 				if(n.next == null){ return false; }
+
+			}
+			if(size == 1){
+
+				this.node = null;
+				this.size = 0;
+				return true;
 			}
 			n.word = n.next.word;
 			n.next = n.next.next;
@@ -106,9 +119,9 @@ public class WordList {
 	public boolean contains(String elt) {
 		if(this.getNode() != null){
 			Node n = this.getNode();
-			while(n.word != elt){
-				n = n.next;
+			while(!elt.equals(n.word)){
 				if(n.next == null){ return false; }
+				n = n.next;
 			}
 			return true;
 		}
@@ -120,8 +133,9 @@ public class WordList {
 		String result = "";
 		if(this.getNode() != null){
 			Node n = this.getNode();
+			if(size == 1){ return this.node.word; }
 			while(n.next != null){
-				result += n.word + " ";
+				result += n.word;
 				n = n.next;
 			}
 			return result;

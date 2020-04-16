@@ -6,7 +6,12 @@ package imoralessirgo.hw2;
  * This class will be used by Question Q2 on Homework2.
  */
 public class WordSymbolTable {
-	
+
+	private Node node;
+	private int size;
+	private int wc;
+
+
 	/** 
 	 * Leave this Node class as is. While you don't need to make changes to this class,
 	 * it is acceptable if you would like to add methods to this class.
@@ -20,6 +25,52 @@ public class WordSymbolTable {
 			this.word = w;
 			this.count = count;
 		}
+
+		public boolean hasNext(){
+			return next != null;
+		}
+	}
+
+	/**
+	 *
+	 * @return initial node getter
+	 */
+	public Node getNode(){
+		return this.node;
+	}
+
+	/**
+	 *
+	 * @param n
+	 * @return initial node setter
+	 */
+	private Node setNode(Node n){
+		this.size = 1;
+		this.node = n;
+		this.wc = 1;
+		return this.node;
+	}
+
+	private void incrementSize(){
+		this.size += 1;
+	}
+
+	private void incrementWC(){
+		this.wc += 1;
+	}
+
+
+	public boolean isEmpty(){
+		return this.node == null;
+	}
+
+
+	private void decrementSize(){
+		this.size -= 1;
+	}
+
+	private void decrementWC(){
+		this.wc -= 1;
 	}
 
 	/**
@@ -32,7 +83,27 @@ public class WordSymbolTable {
 	 * @param elt      element whose count has increased by 1.
 	 */
 	public boolean increment(String elt) {
-		// TODO
+		if (this.isEmpty()){ this.setNode(new Node(elt,1)); return true; }
+
+		if(!this.contains(elt)){
+			Node n = this.getNode();
+			while(n.hasNext()){
+				n = n.next;
+			}
+			n.next = new Node(elt,1);
+			this.incrementSize();
+			this.incrementWC();
+			return true;
+		}else{
+			Node n = this.getNode();
+
+			while(!elt.equals(n.word)){
+				n = n.next;
+			}
+			n.count += 1;
+			this.incrementSize();
+
+		}
 		return false;
 	}
 
@@ -45,26 +116,58 @@ public class WordSymbolTable {
 	 * @param elt      element whose count is to decrease by 1.
 	 */
 	public boolean decrement(String elt) {
-		// TODO
-		return false;
+		if (this.isEmpty()){ return false; }
+
+		if(!this.contains(elt)){
+			return false;
+		}else{
+			Node n = this.getNode();
+			while(n.word != elt){
+				n = n.next;
+			}
+			n.count -= 1;
+			this.decrementSize();
+			if(n.count == 0){
+				n = n.next;
+				this.decrementWC();
+			}
+		}
+		return true;
 	}
 
 	/** Return number of words in the symbol table. */
 	public int size() {
-		// TODO
-		return -1;
+		return this.wc;
 	}
 
 	/** Return the accumulated counts of all words in the word table. */
 	public int totalCounts() {
-		// TODO
-		return -1;
+		return this.size;
 	}
 
 	/** Remove entire word from the word table. */
 	public boolean remove (String elt) {
-		// TODO
-		return false;
+		if (this.isEmpty()){ return false; }
+		if(!this.contains(elt)){
+			return false;
+		}else{
+			Node n = this.getNode();
+			while(!elt.equals(n.word)){
+				n = n.next;
+			}
+			if(this.wc == 1){
+				this.node = null;
+				this.size = 0;
+				this.wc = 0;
+				return true;
+			}
+				this.size -= n.count;
+				this.decrementWC();
+				n.count = n.next.count;
+				n.word = n.next.word;
+				n.next = n.next.next;
+		}
+		return true;
 	}
 
 	/**
@@ -73,7 +176,14 @@ public class WordSymbolTable {
 	 * @param elt      target element to seek.
 	 */
 	public boolean contains(String elt) {
-		// TODO
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			while(!elt.equals(n.word)){
+				if(n.next == null){ return false; }
+				n = n.next;
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -83,8 +193,16 @@ public class WordSymbolTable {
 	 * @param elt      target element to seek.
 	 */
 	public int count(String elt) {
-		// TODO
-		return -1;
+		if (this.isEmpty()){ return 0; }
+		if(!this.contains(elt)){
+			return 0;
+		}else{
+			Node n = this.getNode();
+			while(!elt.equals(n.word)){
+				n = n.next;
+			}
+			return n.count;
+		}
 	}
 
 	/** 
@@ -94,14 +212,36 @@ public class WordSymbolTable {
 	 * only needs to return one of them.
 	 */
 	public String mostFrequent() {
-		// TODO
-		return "";
+		int maxCount = 0;
+		String mostFreq = "";
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			maxCount = n.count;
+			mostFreq = n.word;
+			while(n.next != null){
+				n = n.next;
+				if(n.count > maxCount){
+					maxCount = n.count;
+					mostFreq = n.word;
+				}
+			}
+		}
+		return mostFreq;
 	}
 
 
 	/** For debugging, return semicolon-separated string of (word,count) pairs. */
 	public String elements() {
-		// TODO
+		String result = "";
+		if(this.getNode() != null){
+			Node n = this.getNode();
+			if(wc == 1){ return "(" + this.node.word + "," + this.node.count + ")"; }
+			while(n.next != null){
+				result += "(" + n.word + "," + n.count + ")";
+				n = n.next;
+			}
+			return result;
+		}
 		return "";
 	}
 
