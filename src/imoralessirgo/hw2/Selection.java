@@ -57,6 +57,10 @@ public class Selection {
 		public Node(int person) {
 			this.person = person;
 		}
+		public Node getNext(){
+
+			return n.next;
+		}
 	}
 	
 	/**
@@ -66,7 +70,12 @@ public class Selection {
 	 * @param result
 	 */
 	static void output(FixedCapacityQueue<Integer> result) {
-		System.out.println("NOT IMPLEMENTED YET");
+		String s = "[";
+		while(!result.isEmpty()){
+			s += result.dequeue() + " ";
+		}
+		s += "]";
+		System.out.println(s);
 	}
 	
 	/**
@@ -75,10 +84,36 @@ public class Selection {
 	 */
 	FixedCapacityQueue<Integer> countOff() {
 		FixedCapacityQueue<Integer> result = new FixedCapacityQueue<Integer>(N);
+		Node temp = this.n;
+		while(this.n.next != null){
+			for(int i = 1; i < this.k; i++){
+				if(temp.next != null){
+					temp = temp.next;
+				}else{
+					temp = this.n;
+				}
+			}
+			result.enqueue(temp.person);
 
-		// YOUR CODE HERE...
-		
+
+			if(temp.next == null){
+				temp.person = this.n.person;
+				temp.next = this.n.next;
+			}else if(temp.person == temp.next.person){
+				return result;
+			}else{
+				temp.person = temp.next.person;
+				temp.next = temp.next.next;
+			}
+		}
+
 		return result;
+	}
+
+	public int remove(Node n){
+		int ret = n.person;
+
+		return ret;
 	}
 
 	/** Launch the small examples to demonstrate success. */
