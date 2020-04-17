@@ -77,22 +77,30 @@ public class Q3 {
 	 * of how many times Math.power() is called for an initial problem of size n.
 	 */
 	static long model(int n) {
-		// FIX ME
-		return 0;
+		int result = 0;
+		result = (int)(log2(n) + Math.pow(2,log2(n)) + 1);
+		return result;
 	}
+
+
 	
 	/**
 	 * Bonus question. Can you come up with a (more complicated) formula that predicts
 	 * the value, Value, or proc(a,0,n-1) when a is composed of the integers from 0 to n-1. 
 	 */
 	static long bonusModel(int n) {
-		// FIX ME
 		return 0;
 	}
-	
+
+	public static int log2(int N)
+	{
+		int result = (int)(Math.log(N) / Math.log(2));
+		return result;
+	}
+
 	/** Launch the experiment. */
 	public static void main(String[] args) {
-		System.out.println("     N         Value   Actual");
+		System.out.println("     N         Value    Actual   Predicted");
 		for (int n = 2; n <= 4096; n *= 2) {
 			count = 0;
 			int[] a = new int[n];
@@ -102,7 +110,7 @@ public class Q3 {
 			// using indices of lo=0 and hi=n-1
 			long val = proc(a, 0, n-1);
 			
-			System.out.println(String.format("%6d\t%12d\t%6d", n, val, count));
+			System.out.println(String.format("%6d\t%12d\t%6d\t%10d", n, val, count, model(n)));
 		}
 	}
 }

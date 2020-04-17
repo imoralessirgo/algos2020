@@ -8,7 +8,11 @@ Q2. No need for separate written questions. Your code should just run
 
 Q3.1 [8 pts.] Identify the base case for S() and the recursive case for S(n)
 
+Base Case S(1) = 2
+
 Q3.2 [12 pts.] Derive an exact solution for S(N) when N is a power of 2. Be sure to show your work.
+
+S(N) = logN + 2^(logN) + 1
 
 << if you think this would be better done with a word document with equations, be sure to include that  >>
 << with your submission.                                                                                >>
