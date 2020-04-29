@@ -15,27 +15,33 @@ import edu.princeton.cs.algs4.StdOut;
  *  @modified George Heineman
  */
 public class Heap {
-	
+
+	// keep count of number of comp & exch
+	static int comp = 0;
+	static int exch = 0;
+
 	/**
-	  * Rearranges the array in ascending order, using the natural order.
-	  * @param a the array to be sorted
-	  */
-	 public static void constructHeap(Comparable[] a) {
-		 int n = a.length;
-		 
-		 // construct heap from the raw array of which we know nothing.
-		 // This is the focus of Question 1 on the homework.
-		 for (int k = n/2; k >= 1; k--) {
-			 sink(a, k, n);
-		 }
-		 
-		 // at this point, a has been turned into a heap.
-		 // For this question, we are not concerned with fully sorting...
-		 // while (n > 1) {
-		 //	 exch(a, 1, n--);
-		 //	 sink(a, 1, n);
-		 // }
-	 }
+	 * Rearranges the array in ascending order, using the natural order.
+	 * @param a the array to be sorted
+	 */
+	public static void constructHeap(Comparable[] a) {
+		int n = a.length;
+		comp = 0;
+		exch = 0;
+
+		// construct heap from the raw array of which we know nothing.
+		// This is the focus of Question 1 on the homework.
+		for (int k = n/2; k >= 1; k--) {
+			sink(a, k, n);
+		}
+
+		// at this point, a has been turned into a heap.
+		// For this question, we are not concerned with fully sorting...
+		// while (n > 1) {
+		//      exch(a, 1, n--);
+		//      sink(a, 1, n);
+		// }
+	}
 
 	 /***************************************************************************
 	  * Helper functions to restore the heap invariant.
@@ -51,25 +57,27 @@ public class Heap {
 		 }
 	 }
 
-	 /***************************************************************************
-	  * Helper functions for comparisons and swaps.
-	  * Indices are "off-by-one" to support 1-based indexing.
-	  ***************************************************************************/
-	 private static boolean less(Comparable[] pq, int i, int j) {
-		 return pq[i-1].compareTo(pq[j-1]) < 0;
-	 }
+	/***************************************************************************
+	 * Helper functions for comparisons and swaps.
+	 * Indices are "off-by-one" to support 1-based indexing.
+	 ***************************************************************************/
+	private static boolean less(Comparable[] pq, int i, int j) {
+		comp++; // increment compare count
+		return pq[i-1].compareTo(pq[j-1]) < 0;
+	}
 
-	 private static void exch(Object[] pq, int i, int j) {
-		 Object swap = pq[i-1];
-		 pq[i-1] = pq[j-1];
-		 pq[j-1] = swap;
-	 }
+	private static void exch(Object[] pq, int i, int j) {
+		exch++; // increment exchange count
+		Object swap = pq[i-1];
+		pq[i-1] = pq[j-1];
+		pq[j-1] = swap;
+	}
 
-	 // print array to standard output
-	 private static void show(Comparable[] a) {
-		 for (int i = 0; i < a.length; i++) {
-			 StdOut.println(a[i]);
-		 }
-	 }
+	// print array to standard output
+	private static void show(Comparable[] a) {
+		for (int i = 0; i < a.length; i++) {
+			StdOut.println(a[i]);
+		}
+	}
 
  }

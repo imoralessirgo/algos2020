@@ -227,8 +227,28 @@ public class BST {
      *
      */
     public String mostFrequent() {
-    	// TODO
-    	return null;
+        if (root == null) { return ""; }
+        int x = 0;
+        String key = "";
+        String r = mostFrequent(root.left);
+        if(this.get(r) > x) { x = this.get(r); key = r; };
+        if(root.count > x) { x = root.count; key = root.key;}
+        String l = mostFrequent(root.right);
+        if(this.get(l) > x) { x = this.get(l); key = l; };
+        return key;
+    }
+
+
+    public String mostFrequent(Node n) {
+        if (n == null) { return ""; }
+        int x = 0;
+        String key = "";
+        String r = mostFrequent(n.left);
+        if(this.get(r) != null && this.get(r) > x) { x = this.get(r); key = r; };
+        if(n.count > x) { x = n.count; key = n.key;}
+        String l = mostFrequent(n.right);
+        if(this.get(l) != null && this.get(l) > x) { x = this.get(l); key = l; };
+        return key;
     }
 
     /** Print in ascending order the keys whose count is 1 (that is, only occur once) and return total. */

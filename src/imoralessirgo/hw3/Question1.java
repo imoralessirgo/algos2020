@@ -1,6 +1,7 @@
 package imoralessirgo.hw3;
 
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * This is the template code for question 1.
@@ -9,25 +10,31 @@ import edu.princeton.cs.algs4.StdOut;
  *
  */
 public class Question1 {
+
+
 	public static void main(String[] args) {
 
-		// for N in 16 .. 512
-		
-		//   for each N, do T=100 trials you want to keep track of 
-		//       what you believe to be the MOST number of exch invocations
-		//       and most number of less invocations
-		
-		//       compute a random array of N uniform doubles
-		
-		//   Make sure you output for each N the maximum values you saw
-		//   in a table like...
-		//
-		//       N   MaxComp    MaxExch
-		//       16  22         8
-		//     .....
+		int T = 100;
+		StdOut.println("N    MaxComp    MaxExch");
+		for (int i= 16; i <= 4096; i*= 2) {
 
-
-		System.out.println("N    MaxComp    MaxExch");
-
+			int maxExch = 0;
+			int maxComp = 0;
+			for (int j = 0; j < T; j++) {
+				Heap.constructHeap(getDataDomain(i));
+				if (Heap.comp > maxComp) { maxComp = Heap.comp; }
+				if (Heap.exch > maxExch) { maxExch = Heap.exch;	}
+			}
+			StdOut.printf("%d     %d      %d%n", i, maxComp, maxExch);
+		}
 	}
+
+	static Double[] getDataDomain(int n) {
+		Double[] arr = new Double[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = StdRandom.uniform();
+		}
+		return arr;
+	}
+
 }

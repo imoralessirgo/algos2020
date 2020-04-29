@@ -5,4 +5,21 @@ Isabel Morales Sirgo
 HW3
 Written Questions
 
-Q1. 
+Q1.
+
+The data obtained from running the trials is as follows
+
+N    MaxComp    MaxExch
+16     26      12
+32     56      26
+64     118      50
+128     239      103
+256     485      207
+512     971      405
+1024     1942      791
+2048     3885      1574
+4096     7753      3094
+
+Seems like MaxComp doesn't go over 2N
+and MaxExch doesn't go over N
+proving the proposition

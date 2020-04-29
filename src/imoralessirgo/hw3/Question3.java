@@ -26,8 +26,13 @@ public class Question3 {
 		}
 		
 		System.out.println("Top ten most frequent words");
+		for(int i = 0; i < 10 ; i++){
+			String w = b.mostFrequent();
+			System.out.println(w + "  " + b.get(w));
+			b.delete(w);
+		}
 
-		// TODO
+
 		
 		int n = b.printUnique();
 		System.out.println(n + " unique words.");
