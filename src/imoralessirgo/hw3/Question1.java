@@ -1,5 +1,7 @@
 package imoralessirgo.hw3;
 
+import edu.princeton.cs.algs4.StdOut;
+
 /**
  * This is the template code for question 1.
  *
@@ -23,5 +25,9 @@ public class Question1 {
 		//       N   MaxComp    MaxExch
 		//       16  22         8
 		//     .....
+
+
+		System.out.println("N    MaxComp    MaxExch");
+
 	}
 }

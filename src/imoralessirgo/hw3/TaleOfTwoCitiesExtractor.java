@@ -25,7 +25,7 @@ public class TaleOfTwoCitiesExtractor implements Iterable<String>, Iterator<Stri
 	 * 
 	 * new File("C:\\Users\\Laptop\\git\\cs2223d20\\Algorithms D2020\\tale");
 	 */
-	File actualDir = null;
+	File actualDir = new File("/home/unagdb/IdeaProjects/cs2223d20/Algorithms D2020/tale");
 	
 	/** Processes the input from the designated chapter. */ 
 	Scanner sc;

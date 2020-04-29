@@ -1,8 +1,11 @@
 package imoralessirgo.hw3;
 
-import algs.hw3.AVL;
-import algs.hw3.BST;
 import algs.hw3.InstrumentedSeparateChainingHashST;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
+
+import java.io.IOException;
+
 
 /**
 
@@ -76,9 +79,9 @@ AVG. HT Depth:3.6068544600938965
 
 */
 public class Question2 {
-	public static void main(String[] args) throws java.io.IOException {
-		algs.hw3.BST b = new BST();
-		algs.hw3.AVL avl = new AVL();
+	public static void main(String[] args) throws IOException {
+		BST b = new BST();
+		AVL avl = new AVL();
 		InstrumentedSeparateChainingHashST<String, Integer> hashST = new InstrumentedSeparateChainingHashST<>();
 		
 		// Now process the data from Tale Of Two Cities and use these three different symbol tables 
@@ -86,23 +89,91 @@ public class Question2 {
 		// of 10,650 unique keys in each of these symbol tables, and the Integer counts would be the 
 		// frequency of occurrence.
 		// FILL IN HERE...
-		
+
+
+		for(int i = 1; i <= 45 ; i++) {
+			TaleOfTwoCitiesExtractor te = new TaleOfTwoCitiesExtractor(i);
+			for (String word : te) {
+
+				if(hashST.contains(word)){
+					avl.put(word, b.get(word) + 1);
+					b.put(word, b.get(word) + 1);
+					hashST.put(word,hashST.get(word) + 1);
+				}else {
+					b.put(word, 1);
+					avl.put(word, 1);
+					hashST.put(word, 1);
+				}
+			}
+		}
+
+
 		System.out.println("There are " + b.size() + " unique words.");
 		System.out.println("The Height of the BST is " + b.height());
 		System.out.println("The Height of the AVL is " + avl.root.height);
-		
+
+		SeparateChainingHashST<Integer, Integer> bCollection = b.collect();
+		SeparateChainingHashST<Integer, Integer> avlCollection  = avl.collect();
+
+
+
 		// Here is where you will generate output that looks like ....
 		System.out.print("N   ");
 		for (int n = 1; n <= 30; n++) {
 			System.out.print(String.format("%4d,", n));
 		}
 		System.out.println();
-		
+
+		double bCount = 0;
+		double avlCount = 0;
+		double hashCount = 0;
+
 		// now output a row for each of the #BST, #AVL, #HT
-		
-		System.out.println("AVG. BST Depth: ...");
-		System.out.println("AVG. AVL Depth: ...");
-		System.out.println("AVG. HT Depth: ...");
+		System.out.print("BST ");
+		for (int n = 0; n < b.height(); n++) {
+			System.out.print(String.format("%4d,", bCollection.get(n)));
+			bCount +=  bCollection.get(n)*(n+1);
+		}
+		System.out.println();
+		System.out.print("AVL ");
+		for (int n = 0; n < avl.root.height; n++) {
+			System.out.print(String.format("%4d,", avlCollection.get(n)));
+			avlCount +=  avlCollection.get(n)*(n+1);
+		}
+		System.out.println();
+
+
+		int i = 0;
+		SeparateChainingHashST<Integer,Integer> htMap = new SeparateChainingHashST<>();
+		boolean flag = true;
+		int count = 0;
+		while(flag) {
+			flag = false;
+			for(int j = 0; j < hashST.m; j++){
+				if(hashST.st[j].size() > i){
+					count++;
+					flag = true;
+				}
+			}
+			i++;
+			htMap.put(i,count);
+			count = 0;
+		}
+
+		System.out.print("HT  ");
+		for (int k = 1; k < htMap.size(); k++) {
+			System.out.print(String.format("%4d,", htMap.get(k)));
+			hashCount +=  htMap.get(k) * k;
+		}
+		System.out.println();
+
+
+
+
+		System.out.println();
+		System.out.println("AVG. BST Depth: ... " + bCount/b.size());
+		System.out.println("AVG. AVL Depth: ... " + avlCount/b.size());
+		System.out.println("AVG. HT Depth: ... " + hashCount/b.size());
 		
 	}
 }

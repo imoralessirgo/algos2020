@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="afc20196-aacd-434e-ad58-6c43cd861b7b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day07/MergeAnnotated.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day07/MergeAnnotated.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day08/RecursiveMaxFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day08/RecursiveMaxFinder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day10/PerformanceNK.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/days/day10/PerformanceNK.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/hw2/Selection$Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/hw2/Selection$Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/hw2/Selection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../out/production/Algorithms D2020/algs/hw2/Selection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/algos2020/imoralessirgo/hw2/Q1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../out/production/algos2020/imoralessirgo/hw2/Q2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AVL.java" beforeDir="false" afterPath="$PROJECT_DIR$/AVL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Question2.java" beforeDir="false" afterPath="$PROJECT_DIR$/Question2.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1b5fYkDjhoViEbYy4BbD8oa2Eg4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="afc20196-aacd-434e-ad58-6c43cd861b7b" name="Default Changelist" comment="" />
+      <created>1587926924747</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587926924747</updated>
+      <workItem from="1587926926074" duration="5000" />
+    </task>
+    <servers />
+  </component>
+</project>

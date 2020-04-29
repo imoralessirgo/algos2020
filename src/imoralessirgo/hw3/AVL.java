@@ -10,7 +10,7 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
  */
 public class AVL {
 
-	Node root;               // root of the tree
+	public Node root;               // root of the tree
 	
 	class Node {
 		String    key;          
@@ -216,10 +216,26 @@ public class AVL {
      * 
      * Returns a edu.princeton.cs.algs4.SeparateChainingHashST object representing the symbol table.
      */
-    public SeparateChainingHashST<Integer,Integer> collect() {
-    	// FIX ME
-    	return null;
-    }
-    
+	public SeparateChainingHashST<Integer,Integer> collect() {
+		SeparateChainingHashST<Integer,Integer> map = new SeparateChainingHashST<>();
+		if (root == null){
+			map.put(0,0);
+			return map;
+		}else{
+			map.put(0,1);
+			for(int i = 1; i < root.height; i++){
+				map.put(i, countAt(root, 0, i));
+			}
+		}
+
+		return map;
+	}
+
+	static int countAt(Node node, int curr, int desired){
+		if (node == null) return 0;
+		if (curr == desired) return 1;
+		return countAt (node.left,  curr+1, desired) +
+				countAt (node.right, curr+1, desired);
+	}
     
 }

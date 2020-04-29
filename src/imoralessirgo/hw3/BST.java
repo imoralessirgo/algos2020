@@ -157,16 +157,43 @@ public class BST {
      * Returns a edu.princeton.cs.algs4.SeparateChainingHashST object representing the symbol table.
      */
     public SeparateChainingHashST<Integer,Integer> collect() {
-    	// TODO
-    	return null;
+        SeparateChainingHashST<Integer,Integer> map = new SeparateChainingHashST<>();
+        if (root == null){
+            map.put(0,0);
+            return map;
+        }else{
+            map.put(0,1);
+            for(int i = 1; i < this.height(); i++){
+                map.put(i, countAt(root, 0, i));
+            }
+        }
+
+    	return map;
+    }
+
+    static int countAt(Node node, int curr, int desired){
+        if (node == null) return 0;
+        if (curr == desired) return 1;
+        return countAt (node.left,  curr+1, desired) +
+                countAt (node.right, curr+1, desired);
     }
     
     /**
      * Returns the height of this binary tree.
      */
 	public int height() {
-		// TODO
-		return -1;
+        if (root == null) {
+            return -1;
+        }
+
+        int lefth = height(root.left);
+        int righth = height(root.right);
+
+        if (lefth > righth) {
+            return lefth + 1;
+        } else {
+            return righth + 1;
+        }
 	}
 	
     /** 
@@ -181,23 +208,47 @@ public class BST {
      *          F           -- height of F is 0
      */
     public int height(Node n) {
-    	// TODO
-    	return -1;
+        if (n == null) {
+            return -1;
+        }
+
+        int lefth = height(n.left);
+        int righth = height(n.right);
+
+        if (lefth > righth) {
+            return lefth + 1;
+        } else {
+            return righth + 1;
+        }
     }
     
     /**
      * Return the key whose count is the greatest (that is, has the most occurrences in the BST).
-     * 
+     *
      */
     public String mostFrequent() {
     	// TODO
     	return null;
     }
-    
+
     /** Print in ascending order the keys whose count is 1 (that is, only occur once) and return total. */
     public int printUnique() {
-    	// TODO
-    	return -1;
+        if (root == null) { return 0; }
+        int x = 0;
+
+        x += printUnique(root.left);
+        if(root.count == 1) { System.out.printf(root.key); x++;}
+        x += printUnique(root.right);
+        return x;
+    }
+
+     public int printUnique(Node n) {
+        if (n == null) { return 0; }
+        int x = 0;
+        x += printUnique(n.left);
+        if(n.count == 1) { System.out.println(n.key); x++; }
+        x += printUnique(n.right);
+        return x;
     }
 
 }
