@@ -28,7 +28,7 @@ public class LongestWordLadder {
 		while (sc.hasNext()) {
 			String s = sc.next();
 			if (s.length() == 4) {
-
+				avl.insert(s);
 				// fill in here...
 			}
 		}

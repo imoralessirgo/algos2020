@@ -1,9 +1,8 @@
 package imoralessirgo.hw4;
 
 import algs.hw4.AVL;
-import edu.princeton.cs.algs4.SeparateChainingHashST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs.days.day19.Graph;
+import edu.princeton.cs.algs4.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,8 +23,16 @@ public class WordLadder {
 	 * Determine if the two same-sized words are off by just a single character.
 	 */
 	public static boolean offByOne(String w1, String w2) {
-		// FILL IN ...
-		return false;
+		int diffChar = 0;
+		for(int i = 0; i < w1.length(); i++){
+			if(w1.charAt(i) != w2.charAt(i)){
+				diffChar++;
+			}
+		}
+		if(diffChar == 1)
+			return true;
+		else
+			return false;
 	}
 
 
@@ -44,11 +51,14 @@ public class WordLadder {
 		// Note: you will have to copy this file into your project to access it, unless you
 		// are already writing your code within the SedgewickAlgorithms4ed project.
 		Scanner sc = new Scanner(new File ("words.english.txt"));
+		int id = 0;
 		while (sc.hasNext()) {
 			String s = sc.next();
 			if (s.length() == 4) {
-
-				// fill in here...
+				id++;
+				avl.insert(s);
+				table.put(s,id);
+				reverse.put(id,s);
 			}
 		}
 		sc.close();
@@ -56,8 +66,19 @@ public class WordLadder {
 		// now construct graph, where each node represents a word, and an edge exists between 
 		// two nodes if their respective words are off by a single letter. Hint: use the
 		// keys() method provided by the AVL tree to iterate over all keys in the graph
-		
-		// fill in here...
+
+
+		Graph graph = new Graph(id + 1);
+		String min = avl.min();
+		for (String w1: avl.keys()) {
+			for (String w2 : avl.keys(min, w1)) { // will do one more check than necessary...
+				if(!w1.equals(w2)){
+					if(offByOne(w1,w2))
+						graph.addEdge(table.get(w1), table.get(w2));
+				}
+			}
+		}
+
 
 		StdOut.println("Enter word to start from (all in lower case):");
 		String start = StdIn.readString().toLowerCase();
@@ -77,7 +98,11 @@ public class WordLadder {
 		// Once both words are known to exist in the dictionary, then create a search
 		// that finds shortest distance (should it exist) between start and end.
 		// be sure to output the words in the word ladder, IN ORDER, from the start to end.
+		BreathFirst bf = new BreathFirst(graph, table.get(start));
 
-		// fill in here...
+		for(int w : bf.pathTo(table.get(end))){
+			System.out.println(reverse.get(w));
+		}
+
 	}
 }
